@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900 antialiased;
+}
+
+a {
+  @apply text-brand-600 hover:text-brand-700 font-medium;
+}
+
+.card {
+  @apply bg-white shadow-sm border border-gray-100 rounded-xl;
+}
+
+.badge {
+  @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold;
+}
