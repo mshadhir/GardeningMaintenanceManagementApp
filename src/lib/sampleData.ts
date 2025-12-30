@@ -6,39 +6,48 @@ export const sampleSites: Site[] = [
     name: 'Green Meadows Estate',
     address: '123 Greenway Blvd',
     city: 'Portland, OR',
+    contactName: 'Alyssa Hart',
+    contactPhone: '(555) 201-4433',
+    serviceFrequency: 'Weekly',
+    notes: 'Focus on winter pruning and irrigation checks.',
     manager: 'Alyssa Hart',
     phone: '(555) 201-4433',
     status: 'on_track',
     nextVisit: '2024-12-31',
     coordinates: { lat: 45.5152, lng: -122.6784 },
-    activeTasks: 6,
-    notes: 'Focus on winter pruning and irrigation checks.'
+    activeTasks: 6
   },
   {
     id: 'site-2',
     name: 'Lakeside Villas',
     address: '980 Lake Shore Dr',
     city: 'Seattle, WA',
+    contactName: 'Jacob Mills',
+    contactPhone: '(555) 667-2399',
+    serviceFrequency: 'Bi-weekly',
+    notes: 'Drainage issues near the north entrance.',
     manager: 'Jacob Mills',
     phone: '(555) 667-2399',
     status: 'at_risk',
     nextVisit: '2025-01-02',
     coordinates: { lat: 47.6062, lng: -122.3321 },
-    activeTasks: 4,
-    notes: 'Drainage issues near the north entrance.'
+    activeTasks: 4
   },
   {
     id: 'site-3',
     name: 'Sunrise Corporate Campus',
     address: '4100 Innovation Way',
     city: 'San Jose, CA',
+    contactName: 'Priya Desai',
+    contactPhone: '(555) 842-7788',
+    serviceFrequency: 'Monthly',
+    notes: 'Irrigation controller upgrade scheduled.',
     manager: 'Priya Desai',
     phone: '(555) 842-7788',
     status: 'delayed',
     nextVisit: '2025-01-04',
     coordinates: { lat: 37.3382, lng: -121.8863 },
-    activeTasks: 7,
-    notes: 'Irrigation controller upgrade scheduled.'
+    activeTasks: 7
   },
 ];
 
