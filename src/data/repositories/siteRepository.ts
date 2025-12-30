@@ -6,6 +6,8 @@ import {
   getDocs,
   updateDoc,
   type DocumentReference,
+  type DocumentSnapshot,
+  type QueryDocumentSnapshot,
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import type { Site, Task, VisitLog } from '@/lib/types';
