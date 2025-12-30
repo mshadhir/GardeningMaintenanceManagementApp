@@ -55,6 +55,12 @@ export interface ScheduleItem {
   updatedAt?: string;
 }
 
+export interface ScheduleEntry {
+  day: string;
+  siteId: string;
+  tasks: string[];
+}
+
 export interface DashboardSnapshot {
   siteCount: number;
   tasksDueThisWeek: number;
