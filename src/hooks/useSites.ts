@@ -15,6 +15,20 @@ interface UseSitesResult {
   refresh: () => Promise<void>;
 }
 
+const siteDefaults: Omit<Site, 'id'> = {
+  name: '',
+  address: '',
+  city: '',
+  contactName: '',
+  contactPhone: '',
+  serviceFrequency: '',
+  notes: '',
+  status: 'on_track',
+  nextVisit: '',
+  coordinates: { lat: 0, lng: 0 },
+  activeTasks: 0,
+};
+
 export function useSites(): UseSitesResult {
   const [sites, setSites] = useState<Site[]>(sampleSites);
   const [tasks, setTasks] = useState<Task[]>(sampleTasks);
@@ -39,7 +53,11 @@ export function useSites(): UseSitesResult {
         const taskSnapshot = await getDocs(collection(db, 'tasks'));
         const scheduleSnapshot = await getDocs(collection(db, 'schedule'));
 
-        const siteData = siteSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as Site[];
+        const siteData = siteSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...siteDefaults,
+          ...(doc.data() as Site),
+        }));
         const taskData = taskSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as Task[];
         const scheduleData = scheduleSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as ScheduleItem[];
 
@@ -69,7 +87,13 @@ export function useSites(): UseSitesResult {
       const taskSnapshot = await getDocs(collection(db, 'tasks'));
       const scheduleSnapshot = await getDocs(collection(db, 'schedule'));
 
-      setSites(siteSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as Site[]);
+      setSites(
+        siteSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...siteDefaults,
+          ...(doc.data() as Site),
+        }))
+      );
       setTasks(taskSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as Task[]);
       setSchedule(scheduleSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as ScheduleItem[]);
     } catch (error) {

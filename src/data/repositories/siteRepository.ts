@@ -12,6 +12,20 @@ import {
 import { db } from '@/lib/firebase';
 import type { Site, Task, VisitLog } from '@/lib/types';
 
+const defaultSiteFields: Omit<Site, 'id'> = {
+  name: '',
+  address: '',
+  city: '',
+  contactName: '',
+  contactPhone: '',
+  serviceFrequency: '',
+  notes: '',
+  status: 'on_track',
+  nextVisit: '',
+  coordinates: { lat: 0, lng: 0 },
+  activeTasks: 0,
+};
+
 function ensureDb() {
   if (!db) {
     throw new Error('Firestore is not initialized. Ensure Firebase config is set.');
@@ -19,34 +33,18 @@ function ensureDb() {
   return db;
 }
 
-function validateCoordinates(siteId: string, coordinates: Site['coordinates'] | undefined): Site['coordinates'] {
-  if (!coordinates) {
-    throw new Error(`Site "${siteId}" is missing geocoded coordinates.`);
-  }
-
-  const { lat, lng } = coordinates;
-  if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
-    throw new Error(`Site "${siteId}" has invalid coordinate values.`);
-  }
-
-  return { lat, lng };
-}
-
-function mapSiteDocument(siteDoc: QueryDocumentSnapshot | DocumentSnapshot): Site {
-  const rawData = siteDoc.data() as Partial<Omit<Site, 'id'>>;
-  const coordinates = validateCoordinates(siteDoc.id, rawData?.coordinates);
-
+function mapSiteData(siteId: string, data: Partial<Site>): Site {
   return {
-    id: siteDoc.id,
-    ...(rawData as Omit<Site, 'id'>),
-    coordinates,
+    ...defaultSiteFields,
+    ...data,
+    id: siteId,
   };
 }
 
 export async function getSites(): Promise<Site[]> {
   const database = ensureDb();
   const snapshot = await getDocs(collection(database, 'sites'));
-  return snapshot.docs.map(mapSiteDocument);
+  return snapshot.docs.map((siteDoc) => mapSiteData(siteDoc.id, siteDoc.data() as Site));
 }
 
 export async function getSiteById(id: string): Promise<Site | null> {
@@ -54,7 +52,7 @@ export async function getSiteById(id: string): Promise<Site | null> {
   const siteRef = doc(database, 'sites', id);
   const siteSnap = await getDoc(siteRef);
   if (!siteSnap.exists()) return null;
-  return mapSiteDocument(siteSnap);
+  return mapSiteData(siteSnap.id, siteSnap.data() as Site);
 }
 
 export async function createSite(site: Omit<Site, 'id'>): Promise<Site> {

@@ -1,6 +1,6 @@
-import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import type { Task } from '@/lib/types';
+import { SiteTask } from '@/lib/types';
 
 function ensureDb() {
   if (!db) {
@@ -9,17 +9,31 @@ function ensureDb() {
   return db;
 }
 
-export async function getTasksForDate(dateKey: string): Promise<Task[]> {
+export async function getTasksBySite(siteId: string): Promise<SiteTask[]> {
   const database = ensureDb();
-  const tasksRef = collection(database, 'tasks');
-  const tasksQuery = query(tasksRef, where('dueDate', '==', dateKey));
-  const snapshot = await getDocs(tasksQuery);
-
-  return snapshot.docs.map((taskDoc) => ({ id: taskDoc.id, ...(taskDoc.data() as Task) }));
+  const taskQuery = query(collection(database, 'tasks'), where('siteId', '==', siteId));
+  const snapshot = await getDocs(taskQuery);
+  return snapshot.docs.map((taskDoc) => ({ id: taskDoc.id, ...(taskDoc.data() as SiteTask) }));
 }
 
-export async function markTaskComplete(taskId: string): Promise<void> {
+export async function createTask(task: Omit<SiteTask, 'id'>): Promise<SiteTask> {
   const database = ensureDb();
-  const taskRef = doc(database, 'tasks', taskId);
-  await updateDoc(taskRef, { status: 'done' });
+  const docRef = await addDoc(collection(database, 'tasks'), task);
+  return { ...task, id: docRef.id };
+}
+
+export async function updateTaskStatus(
+  id: string,
+  isDone: boolean,
+  lastCompletedOn: string | null
+): Promise<void> {
+  const database = ensureDb();
+  const taskRef = doc(database, 'tasks', id);
+  await updateDoc(taskRef, { isDone, lastCompletedOn });
+}
+
+export async function updateTaskNotes(id: string, notes: string): Promise<void> {
+  const database = ensureDb();
+  const taskRef = doc(database, 'tasks', id);
+  await updateDoc(taskRef, { notes });
 }
