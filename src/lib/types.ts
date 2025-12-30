@@ -46,6 +46,15 @@ export interface Task {
   updatedAt?: string;
 }
 
+export interface SiteTask {
+  id: string;
+  siteId: string;
+  title: string;
+  isDone: boolean;
+  lastCompletedOn: string | null;
+  notes?: string;
+}
+
 export interface ScheduleItem {
   id: string;
   siteId: string;
