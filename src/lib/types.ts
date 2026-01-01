@@ -3,6 +3,7 @@ export type TaskStatus = 'todo' | 'in_progress' | 'done';
 export type SiteHealth = 'on_track' | 'at_risk' | 'delayed';
 export type VisitOutcome = 'completed' | 'partial' | 'missed';
 export type RoleKey = 'admin' | 'manager' | 'crew' | 'viewer';
+export type ServiceFrequency = 'weekly' | 'fortnightly' | 'monthly';
 
 export interface Coordinates {
   lat: number;

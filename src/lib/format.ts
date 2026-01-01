@@ -1,4 +1,4 @@
-import { SiteHealth, TaskPriority, TaskStatus } from './types';
+import { ServiceFrequency, SiteHealth, TaskPriority, TaskStatus } from './types';
 
 export const statusCopy: Record<TaskStatus, string> = {
   todo: 'To do',
@@ -34,4 +34,10 @@ export const siteHealthColor: Record<SiteHealth, string> = {
   on_track: 'bg-emerald-100 text-emerald-800',
   at_risk: 'bg-amber-100 text-amber-800',
   delayed: 'bg-rose-100 text-rose-800'
+};
+
+export const serviceFrequencyCopy: Record<ServiceFrequency, string> = {
+  weekly: 'Weekly',
+  fortnightly: 'Fortnightly',
+  monthly: 'Monthly'
 };
