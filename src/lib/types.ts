@@ -14,15 +14,17 @@ export interface Site {
   id: string;
   name: string;
   address: string;
-  serviceFrequency: ServiceFrequency;
-  city?: string;
+  city: string;
+  contactName: string;
+  contactPhone: string;
+  serviceFrequency: string;
+  notes: string;
   manager?: string;
   phone?: string;
-  status?: SiteHealth;
-  nextVisit?: string;
-  coordinates?: Coordinates;
-  activeTasks?: number;
-  notes?: string;
+  status: SiteHealth;
+  nextVisit: string;
+  coordinates: Coordinates;
+  activeTasks: number;
   services?: string[];
   tags?: string[];
   createdAt?: string;
@@ -45,6 +47,15 @@ export interface Task {
   updatedAt?: string;
 }
 
+export interface SiteTask {
+  id: string;
+  siteId: string;
+  title: string;
+  isDone: boolean;
+  lastCompletedOn: string | null;
+  notes?: string;
+}
+
 export interface ScheduleItem {
   id: string;
   siteId: string;
@@ -55,6 +66,12 @@ export interface ScheduleItem {
   notes?: string;
   createdAt?: string;
   updatedAt?: string;
+}
+
+export interface ScheduleEntry {
+  day: string;
+  siteId: string;
+  tasks: string[];
 }
 
 export interface DashboardSnapshot {
