@@ -10,7 +10,7 @@ import {
   type QueryDocumentSnapshot,
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import type { Site, Task, VisitLog } from '@/lib/types';
+import type { Site, Task } from '@/lib/types';
 
 const defaultSiteFields: Omit<Site, 'id'> = {
   name: '',
@@ -67,10 +67,4 @@ export async function updateTask(siteId: string, taskId: string, data: Partial<T
   // siteId is used for validation/ownership checks at the call site or via security rules.
   const taskRef: DocumentReference = doc(database, 'tasks', taskId);
   await updateDoc(taskRef, { ...data, siteId });
-}
-
-export async function logVisit(visitLog: VisitLog): Promise<VisitLog> {
-  const database = ensureDb();
-  const docRef = await addDoc(collection(database, 'visitLogs'), visitLog);
-  return { ...visitLog, id: docRef.id };
 }

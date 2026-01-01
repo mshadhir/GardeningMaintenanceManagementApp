@@ -5,6 +5,7 @@ import { Card, CardFooter, CardHeader } from '@/components/ui/Card';
 import { GhostButton } from '@/components/ui/Button';
 import { siteHealthColor, siteHealthCopy } from '@/lib/format';
 import { Site } from '@/lib/types';
+import Link from 'next/link';
 import { PhoneIcon, CalendarDaysIcon, MapPinIcon } from '@heroicons/react/24/outline';
 
 interface SiteListProps {
@@ -42,6 +43,9 @@ export function SiteList({ sites, onSelect }: SiteListProps) {
                     Focus on map
                   </button>
                 ) : null}
+                <Link href={`/sites/${site.id}`} className="text-sm font-semibold text-brand-600 hover:text-brand-700">
+                  View site
+                </Link>
               </div>
             </div>
           </li>
