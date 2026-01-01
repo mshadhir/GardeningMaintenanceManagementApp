@@ -3,6 +3,7 @@ export type TaskStatus = 'todo' | 'in_progress' | 'done';
 export type SiteHealth = 'on_track' | 'at_risk' | 'delayed';
 export type VisitOutcome = 'completed' | 'partial' | 'missed';
 export type RoleKey = 'admin' | 'manager' | 'crew' | 'viewer';
+export type ServiceFrequency = 'weekly' | 'fortnightly' | 'monthly';
 
 export interface Coordinates {
   lat: number;
@@ -13,13 +14,14 @@ export interface Site {
   id: string;
   name: string;
   address: string;
-  city: string;
-  manager: string;
-  phone: string;
-  status: SiteHealth;
-  nextVisit: string;
-  coordinates: Coordinates;
-  activeTasks: number;
+  serviceFrequency: ServiceFrequency;
+  city?: string;
+  manager?: string;
+  phone?: string;
+  status?: SiteHealth;
+  nextVisit?: string;
+  coordinates?: Coordinates;
+  activeTasks?: number;
   notes?: string;
   services?: string[];
   tags?: string[];
@@ -66,14 +68,9 @@ export interface VisitLog {
   id: string;
   siteId: string;
   visitDate: string;
-  crewLead: string;
-  outcome: VisitOutcome;
   completedTasks: string[];
   notes?: string;
   photos?: string[];
-  weatherSummary?: string;
-  createdAt?: string;
-  updatedAt?: string;
 }
 
 export interface UserRole {

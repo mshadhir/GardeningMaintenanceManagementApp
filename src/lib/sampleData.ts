@@ -1,10 +1,11 @@
-import { DashboardSnapshot, ScheduleItem, Site, Task } from './types';
+import { DashboardSnapshot, ScheduleItem, Site, Task, VisitLog } from './types';
 
 export const sampleSites: Site[] = [
   {
     id: 'site-1',
     name: 'Green Meadows Estate',
     address: '123 Greenway Blvd',
+    serviceFrequency: 'weekly',
     city: 'Portland, OR',
     manager: 'Alyssa Hart',
     phone: '(555) 201-4433',
@@ -18,6 +19,7 @@ export const sampleSites: Site[] = [
     id: 'site-2',
     name: 'Lakeside Villas',
     address: '980 Lake Shore Dr',
+    serviceFrequency: 'fortnightly',
     city: 'Seattle, WA',
     manager: 'Jacob Mills',
     phone: '(555) 667-2399',
@@ -31,6 +33,7 @@ export const sampleSites: Site[] = [
     id: 'site-3',
     name: 'Sunrise Corporate Campus',
     address: '4100 Innovation Way',
+    serviceFrequency: 'monthly',
     city: 'San Jose, CA',
     manager: 'Priya Desai',
     phone: '(555) 842-7788',
@@ -122,3 +125,22 @@ export const sampleSnapshot: DashboardSnapshot = {
   highPriorityTasks: 3,
   visitsScheduled: sampleSchedule.length,
 };
+
+export const sampleVisitLogs: VisitLog[] = [
+  {
+    id: 'visit-1',
+    siteId: 'site-1',
+    visitDate: '2024-12-15',
+    completedTasks: ['Seasonal pruning', 'Mulch refresh'],
+    notes: 'Completed pruning near main lobby and refreshed mulch on flower beds.',
+    photos: ['https://example.com/photos/pruning.jpg', 'https://example.com/photos/mulch.jpg']
+  },
+  {
+    id: 'visit-2',
+    siteId: 'site-2',
+    visitDate: '2024-12-18',
+    completedTasks: ['Drainage inspection'],
+    notes: 'Standing water resolved near north entrance after gutter cleaning.',
+    photos: ['https://example.com/photos/drainage.jpg']
+  }
+];

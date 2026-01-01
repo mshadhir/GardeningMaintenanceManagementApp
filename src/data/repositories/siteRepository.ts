@@ -8,7 +8,7 @@ import {
   type DocumentReference,
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import type { Site, Task, VisitLog } from '@/lib/types';
+import type { Site, Task } from '@/lib/types';
 
 function ensureDb() {
   if (!db) {
@@ -37,16 +37,16 @@ export async function createSite(site: Omit<Site, 'id'>): Promise<Site> {
   return { ...site, id: docRef.id };
 }
 
+export async function updateSite(id: string, data: Partial<Site>): Promise<void> {
+  const database = ensureDb();
+  const siteRef = doc(database, 'sites', id);
+  await updateDoc(siteRef, data);
+}
+
 export async function updateTask(siteId: string, taskId: string, data: Partial<Task>): Promise<void> {
   const database = ensureDb();
   // Tasks are stored as a top-level collection keyed by taskId.
   // siteId is used for validation/ownership checks at the call site or via security rules.
   const taskRef: DocumentReference = doc(database, 'tasks', taskId);
   await updateDoc(taskRef, { ...data, siteId });
-}
-
-export async function logVisit(visitLog: VisitLog): Promise<VisitLog> {
-  const database = ensureDb();
-  const docRef = await addDoc(collection(database, 'visitLogs'), visitLog);
-  return { ...visitLog, id: docRef.id };
 }
