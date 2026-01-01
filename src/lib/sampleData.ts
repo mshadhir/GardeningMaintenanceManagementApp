@@ -1,4 +1,4 @@
-import { DashboardSnapshot, ScheduleItem, Site, Task } from './types';
+import { DashboardSnapshot, ScheduleItem, Site, Task, VisitLog } from './types';
 
 export const sampleSites: Site[] = [
   {
@@ -122,3 +122,22 @@ export const sampleSnapshot: DashboardSnapshot = {
   highPriorityTasks: 3,
   visitsScheduled: sampleSchedule.length,
 };
+
+export const sampleVisitLogs: VisitLog[] = [
+  {
+    id: 'visit-1',
+    siteId: 'site-1',
+    visitDate: '2024-12-15',
+    completedTasks: ['Seasonal pruning', 'Mulch refresh'],
+    notes: 'Completed pruning near main lobby and refreshed mulch on flower beds.',
+    photos: ['https://example.com/photos/pruning.jpg', 'https://example.com/photos/mulch.jpg']
+  },
+  {
+    id: 'visit-2',
+    siteId: 'site-2',
+    visitDate: '2024-12-18',
+    completedTasks: ['Drainage inspection'],
+    notes: 'Standing water resolved near north entrance after gutter cleaning.',
+    photos: ['https://example.com/photos/drainage.jpg']
+  }
+];

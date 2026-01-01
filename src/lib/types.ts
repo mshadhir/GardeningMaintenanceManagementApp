@@ -66,14 +66,9 @@ export interface VisitLog {
   id: string;
   siteId: string;
   visitDate: string;
-  crewLead: string;
-  outcome: VisitOutcome;
   completedTasks: string[];
   notes?: string;
   photos?: string[];
-  weatherSummary?: string;
-  createdAt?: string;
-  updatedAt?: string;
 }
 
 export interface UserRole {
